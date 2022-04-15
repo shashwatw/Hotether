@@ -12,7 +12,7 @@ This project effectively stores the booking data on the blockchain network nowad
 - Metamask (For the smart contract transactions)
 - VS Code 
 - HardHat
-- HTMl/CSS
+- HTML/CSS
 - Javascript
 - NodeJS
 - Ganache 
