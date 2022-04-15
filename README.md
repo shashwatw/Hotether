@@ -30,4 +30,4 @@ The block diagram above depicts how the model should work in that it will first 
 The proposed solution is going to remove all sorts of Unfairness which sometimes Hotel staff does in order to manipulate the data.
 
 ### FUTURE PROSPECT
-- To make our system more useful and convinient, we plan on adding cleaner feature so that manager will get to know that which room is clean or not. blockchain Network.
+-To make our system more useful and convenient, we plan on adding a cleaner feature so that managers will get to know which room is clean or not. blockchain Network.
