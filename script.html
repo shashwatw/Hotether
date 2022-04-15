@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotether</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+   <img class="logo" src="logo.png">
+<div class="main">
+   <p class="cu1"><a href="#contactus" target="_blank">contact us</a></p>
+   <p class="cu2"><a href="#about" target="_blank">about</a></p>
+   <p class="cu3"><a href="navbar/reference.html" target="_blank">reference</a></p>
+</div>
+<div>
+   <input type = "number" id = "roomCapacity">
+   <p id = 'Capacity'></p>
+   <button id ='addRoom'>addRoom</button>
+</div>
+
+<div>
+   <button id="ChangeRoomCondition"> Change Room Condition </button>
+   <p id = 'Capacity'></p>
+</div>
+
+
+<div>
+   <button id="CheckIn"> Check In </button>
+   <p id = 'Capacity'></p>
+</div>
+
+<div>
+   <button id="TransferOwner"> Transfer Owner </button>
+   <p id = 'Capacity'></p>
+</div>
+
+<div>
+   <button id="GetRoom"> Get Room </button>
+   <p id = 'Capacity'></p>
+</div>
+
+<div>
+   <button id="HotelInformation"> Hotel information </button>
+   <p id = 'Capacity'></p>
+</div>
+
+<div>
+   <button id="room"> Room </button>
+   <p id = 'Capacity'></p>
+</div>
+
+<div>
+   <button id="roomStatus"> Room Status </button>
+   <p id = 'Capacity'></p>
+</div>
+
+
+   <div class="main" id="contactus">
+     <h2>Contact us</h2>
+     <p>to add -  contact number and email id</p>
+     <a href="#about">about </a>
+
+   </div>
+   
+   <div class="main" id="about">
+     <h2>about</h2>
+     <a href="#contactus">contact us</a>
+   </div>
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.5.0/web3.min.js" integrity="sha512-0/nXBDmnbXRIkGvwIK2UWg4F8xscIFZHGl2sWevr6f0DnFEqZh4uTw78qLQYC16tVxbbHhoaaZLSBoIopZQucg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+   
+   <script>
+      var contract;
+      $(document).ready(function(){
+         web3 = new Web3(web3.currentProvider);
+   
+         var address = "0x36b329568ef3209223baA3230A6EF2c9c54c9144";
+         var abi = [
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "Customer",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "enum BookingContract.status",
+				"name": "occupancyStatus",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "roomNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "ChangeRoomOccupancyStatus",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "HotelName",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "Location",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "RoomStatus",
+		"outputs": [
+			{
+				"internalType": "enum BookingContract.status",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "roomCapacity",
+				"type": "uint256"
+			}
+		],
+		"name": "addRoom",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "occupant",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "roomNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "checkin",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "cleaner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getRoom",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "capacity",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numOccupants",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "occupied",
+						"type": "bool"
+					},
+					{
+						"internalType": "enum BookingContract.status",
+						"name": "condition",
+						"type": "uint8"
+					},
+					{
+						"internalType": "address",
+						"name": "occupier",
+						"type": "address"
+					}
+				],
+				"internalType": "struct BookingContract.Room[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numRooms",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "rooms",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "capacity",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "numOccupants",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "occupied",
+				"type": "bool"
+			},
+			{
+				"internalType": "enum BookingContract.status",
+				"name": "condition",
+				"type": "uint8"
+			},
+			{
+				"internalType": "address",
+				"name": "occupier",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+];
+         contract = new web3.eth.Contract(abi, address);
+         $('#addRoom').click(function(){
+            console.log("addRoom");
+           var roomCapacity = parseInt($('#roomCapacity').val());
+         //   contract.methods.addRoom(roomCapacity).send({from: web3.eth.defaultAccount, gas: 3000000});
+           web3.eth.requestAccounts().then(function(accounts){
+                           var acc = accounts[0];
+                           return contract.methods.addRoom(roomCapacity).send({from: acc, gas: 3000000});
+                       }).then(function(tx){
+                           console.log(tx);
+                       }).catch(function(tx){
+                           console.log(tx);
+                       })
+         });
+         });
+   </script>
+
+
+
+
+
+</body>
+
+</html>
