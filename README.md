@@ -1,6 +1,9 @@
 # Blockchain-based Hotel Booking (Hotether)
 ![image](https://user-images.githubusercontent.com/88282261/163553372-908f9ffe-f164-439a-a18a-1595a2c24ba3.png)
 
+## 🎞 Video demonstration
+https://www.loom.com/share/ea2e20de08094ff091663fae72a7fd69
+
 ## 📄 Abstract
 Blockchain can preserve an incorruptible, decentralised, and transparent log of all booking data, it's a great fit for lodging applications. Furthermore, while blockchain is transparent, it is also private, hiding any individual's identity behind complicated and secure codes that can preserve the sensitivity of booking data. The technology's decentralised structure also enables Hotel Administration and employees to communicate the same information in a secure and timely manner.
 
