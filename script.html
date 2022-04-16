@@ -11,9 +11,9 @@
 <body>
    <img class="logo" src="logo.png">
 <div class="main">
-   <p class="cu1"><a href="#contactus" target="_blank">contact us</a></p>
-   <p class="cu2"><a href="#about" target="_blank">about</a></p>
-   <p class="cu3"><a href="navbar/reference.html" target="_blank">reference</a></p>
+   <p class="cu1"><a href="#contactus">contact us</a></p>
+   <p class="cu2"><a href="#about">about</a></p>
+   <p class="cu3"><a href="#roomNumber">for manager</a></p>
 </div>
 <div>
 	<p style="text-align:center;">Users can check in by confirming the type of room they want. Note that each room costs 1 ETH!</p>
@@ -63,19 +63,47 @@
    <br>
 </div>
 
+<div class="main" id="about">
+	<h2>about</h2>
+	<p>This project effectively stores the booking data on the blockchain network nowadays we see many hotel manager doing some fraud with the</p>
+	<p>databases containing booking details and manipulating it for their own good and sometimes the booking details are even modified when</p>
+	<p>someone gives bribes to the Hotel staff so that they can modify the previously existing data, So to keep all the data secure and transparent we</p>
+	<p>have created a whole Hotel booking management system on the blockchain network where it can be kept safe and it cannot be manipulated.</p>
+  </div>
 
+  
+ <table>
+    <tr>
+       <td><img class="row1" src="images/LOUIS.jpeg">
+       <td><img class="row1" src="images/Exterior.jpeg" alt=""></td>
+       <td><img class="row1" src="images/BedRoom.jpeg" alt=""></td>
+	   <td><img class="row1" src="images/Bathroom.jpeg"></td>
+       <td><img class="row1" src="images/Dinning.jpeg" alt=""></td>
+       <td><img class="row1" src="images/chill.jpeg" alt=""></td>
+    </tr>
+ </table>
 
-   <div class="main" id="contactus">
-     <h2>Contact us</h2>
-     <p>to add -  contact number and email id</p>
-     <a href="#about">about </a>
+	 <div class="main" id="contactus">
+		<h2>Contact us</h2>
+		<ul>numbers
+			<li>123456789</li>
+			<li>987654321</li>
+		</ul>
+   
+	  <form action="mailto:gauridhamale@gmail.com" method="post" enctype="text/plain">
+		 <label>Your Name:</label>
+		 <input type="text" name="yourName" value=""><br>
+		 <label>Your Email:</label>
+		 <input type="email" name="yourEmail" value=""><br>
+		 <label>Your Message:</label><br>
+		 <textarea name="yourMessage" rows="10" cols="30"></textarea><br>
+		 <input type="submit" name="">
+	 </form>
+   
+	  </div>
 
    </div>
    
-   <div class="main" id="about">
-     <h2>about</h2>
-     <a href="#contactus">contact us</a>
-   </div>
    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.5.0/web3.min.js" integrity="sha512-0/nXBDmnbXRIkGvwIK2UWg4F8xscIFZHGl2sWevr6f0DnFEqZh4uTw78qLQYC16tVxbbHhoaaZLSBoIopZQucg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -85,43 +113,147 @@
       $(document).ready(function(){
          web3 = new Web3(web3.currentProvider);
    
-         var address = "0xD2Db24A27882094872E8557a3Bb608C5C797fFB5";
+         var address = "0x1906752a6741cdE2f961D7Cb2095b33B77d3b60B";
          var abi = [
 	{
+		"constant": true,
 		"inputs": [],
+		"name": "getRoom",
+		"outputs": [
+			{
+				"components": [
+					{
+						"name": "capacity",
+						"type": "uint256"
+					},
+					{
+						"name": "numOccupants",
+						"type": "uint256"
+					},
+					{
+						"name": "occupied",
+						"type": "bool"
+					},
+					{
+						"name": "condition",
+						"type": "uint8"
+					},
+					{
+						"name": "occupier",
+						"type": "address"
+					}
+				],
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
 		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		"anonymous": false,
+		"constant": true,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "Customer",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "amount",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "transfer",
-		"type": "event"
+		"name": "rooms",
+		"outputs": [
+			{
+				"name": "capacity",
+				"type": "uint256"
+			},
+			{
+				"name": "numOccupants",
+				"type": "uint256"
+			},
+			{
+				"name": "occupied",
+				"type": "bool"
+			},
+			{
+				"name": "condition",
+				"type": "uint8"
+			},
+			{
+				"name": "occupier",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numRooms",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "enum BookingContract.status",
+				"name": "roomCapacity",
+				"type": "uint256"
+			}
+		],
+		"name": "addRoom",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "RoomStatus",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "occupant",
+				"type": "address"
+			},
+			{
+				"name": "roomNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "checkin",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "occupancyStatus",
 				"type": "uint8"
 			},
 			{
-				"internalType": "uint256",
 				"name": "roomNumber",
 				"type": "uint256"
 			}
@@ -135,12 +267,11 @@
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "HotelName",
+		"name": "owner",
 		"outputs": [
 			{
-				"internalType": "string",
 				"name": "",
-				"type": "string"
+				"type": "address"
 			}
 		],
 		"payable": false,
@@ -153,7 +284,6 @@
 		"name": "Location",
 		"outputs": [
 			{
-				"internalType": "string",
 				"name": "",
 				"type": "string"
 			}
@@ -165,60 +295,9 @@
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "RoomStatus",
-		"outputs": [
-			{
-				"internalType": "enum BookingContract.status",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "roomCapacity",
-				"type": "uint256"
-			}
-		],
-		"name": "addRoom",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "occupant",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "roomNumber",
-				"type": "uint256"
-			}
-		],
-		"name": "checkin",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
 		"name": "cleaner",
 		"outputs": [
 			{
-				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
@@ -230,110 +309,11 @@
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "getRoom",
+		"name": "HotelName",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "capacity",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "numOccupants",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "occupied",
-						"type": "bool"
-					},
-					{
-						"internalType": "enum BookingContract.status",
-						"name": "condition",
-						"type": "uint8"
-					},
-					{
-						"internalType": "address",
-						"name": "occupier",
-						"type": "address"
-					}
-				],
-				"internalType": "struct BookingContract.Room[]",
 				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "numRooms",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "rooms",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "capacity",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "numOccupants",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "occupied",
-				"type": "bool"
-			},
-			{
-				"internalType": "enum BookingContract.status",
-				"name": "condition",
-				"type": "uint8"
-			},
-			{
-				"internalType": "address",
-				"name": "occupier",
-				"type": "address"
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -344,7 +324,6 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "newOwner",
 				"type": "address"
 			}
@@ -354,6 +333,29 @@
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "Customer",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"type": "event"
 	}
 ];
          contract = new web3.eth.Contract(abi, address);
