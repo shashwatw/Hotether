@@ -16,46 +16,53 @@
    <p class="cu3"><a href="navbar/reference.html" target="_blank">reference</a></p>
 </div>
 <div>
-   <input type = "number" id = "roomCapacity">
+	<p style="text-align:center;">Users can check in by confirming the type of room they want. Note that each room costs 1 ETH!</p>
+	<input type = "text" placeholder="Address(HexaDecimal)" id = "occupant" style="background-color:white;margin-left:auto;margin-right:auto;display:block;margin-top:0%;margin-bottom:0%">
+   <p id = 'Occupant'></p>
+   <input type = "number" placeholder="Room Number" id = "roomNumber" style="background-color:white;margin-left:auto;margin-right:auto;display:block;margin-top:0%;margin-bottom:0%">
+   <p id = 'Rooms'></p>
+   <button id="checkin" style="background-color:rgb(23, 207, 239);margin-left:auto;margin-right:auto;display:block;margin-top:0%;margin-bottom:0%"> Check In </button>
+   <br>
+   <br>
+   <br>
+   <br>
+</div>
+<div>
+	<p style="text-align:center;">Only hotel manager Can access these buttons !</p>
+   <input type = "number" placeholder="Room Capacity" id = "roomCapacity" style="background-color:white;margin-left:auto;margin-right:auto;display:block;margin-top:0%;margin-bottom:-20%">
    <p id = 'Capacity'></p>
-   <button id ='addRoom'>addRoom</button>
+   <button id ='addRoom' style="background-color:rgb(23, 207, 239);margin-left:auto;margin-right:auto;display:block;margin-top:22%;margin-bottom:0%">Add Room</button>
+   <br>
+   <br>
+   <br>
+   <br>
+   <div class="space">
 </div>
 
 <div>
-   <button id="ChangeRoomCondition"> Change Room Condition </button>
-   <p id = 'Capacity'></p>
+   <input type = "number" placeholder="Enter 0-vac or 1-occ" id = "occupancyStatus" style="background-color:white;margin-left:auto;margin-right:auto;display:block;margin-top:0%;margin-bottom:0%">
+   <p id = 'Status'></p>
+	<input type = "number" placeholder="Room Number" id = "roomNumber" style="background-color:white;margin-left:auto;margin-right:auto;display:block;margin-top:0%;margin-bottom:0%">
+	<p id = 'Room'></p>
+   <button id="ChangeRoomOccupancyStatus" style="background-color:rgb(23, 207, 239);margin-left:auto;margin-right:auto;display:block;margin-top:0%;margin-bottom:0%">Change Room's Occupancy Status</button>
+   <br>
+   <br>
+   <br>
+   <br>
 </div>
 
 
-<div>
-   <button id="CheckIn"> Check In </button>
-   <p id = 'Capacity'></p>
-</div>
-
-<div>
-   <button id="TransferOwner"> Transfer Owner </button>
-   <p id = 'Capacity'></p>
-</div>
 
 <div>
-   <button id="GetRoom"> Get Room </button>
-   <p id = 'Capacity'></p>
+	<input type = "text" placeholder="Address of new owner" id = "newOwner" style="background-color:white;margin-left:auto;margin-right:auto;display:block;margin-top:0%;margin-bottom:0%">
+	<p id = 'Owner'></p>
+   <button id="transferOwnership" style="background-color:rgb(23, 207, 239);margin-left:auto;margin-right:auto;display:block;margin-top:0%;margin-bottom:0%">Transfer Ownership</button>
+   <br>
+   <br>
+   <br>
+   <br>
 </div>
 
-<div>
-   <button id="HotelInformation"> Hotel information </button>
-   <p id = 'Capacity'></p>
-</div>
-
-<div>
-   <button id="room"> Room </button>
-   <p id = 'Capacity'></p>
-</div>
-
-<div>
-   <button id="roomStatus"> Room Status </button>
-   <p id = 'Capacity'></p>
-</div>
 
 
    <div class="main" id="contactus">
@@ -78,7 +85,7 @@
       $(document).ready(function(){
          web3 = new Web3(web3.currentProvider);
    
-         var address = "0x36b329568ef3209223baA3230A6EF2c9c54c9144";
+         var address = "0xD2Db24A27882094872E8557a3Bb608C5C797fFB5";
          var abi = [
 	{
 		"inputs": [],
@@ -350,9 +357,11 @@
 	}
 ];
          contract = new web3.eth.Contract(abi, address);
+		 
          $('#addRoom').click(function(){
             console.log("addRoom");
            var roomCapacity = parseInt($('#roomCapacity').val());
+		
          //   contract.methods.addRoom(roomCapacity).send({from: web3.eth.defaultAccount, gas: 3000000});
            web3.eth.requestAccounts().then(function(accounts){
                            var acc = accounts[0];
@@ -363,7 +372,53 @@
                            console.log(tx);
                        })
          });
+		 $('#ChangeRoomOccupancyStatus').click(function(){
+			console.log("ChangeRoomOccupancyStatus");
+			var occupancyStatus = parseInt($('#occupancyStatus').val());
+			var roomNumber = parseInt($('#roomNumber').val());
+
+			web3.eth.requestAccounts().then(function(accounts){
+                           var acc = accounts[0];
+                           return contract.methods.ChangeRoomOccupancyStatus(occupancyStatus, roomNumber).send({from: acc, gas: 3000000});
+						   
+                       }).then(function(tx){
+                           console.log(tx);
+                       }).catch(function(tx){
+                           console.log(tx);
+                       })
          });
+
+		 $('#transferOwnership').click(function(){
+            console.log("transferOwnership");
+           var roomCapacity = $('#newOwner').val();
+		
+           web3.eth.requestAccounts().then(function(accounts){
+                           var acc = accounts[0];
+                           return contract.methods.transferOwnership(newOwner).send({from: acc, gas: 3000000});
+                       }).then(function(tx){
+                           console.log(tx);
+                       }).catch(function(tx){
+                           console.log(tx);
+                       })
+         });
+
+		 $('#checkin').click(function(){
+			console.log("checkin");
+			var occupancyStatus = parseInt($('#occupant').val());
+			var roomNumber = parseInt($('#roomNumber').val());
+
+			web3.eth.requestAccounts().then(function(accounts){
+                           var acc = accounts[0];
+                           return contract.methods.ChangeRoomOccupancyStatus(occupant, roomNumber).send({from: acc, gas: 3000000});
+						   
+                       }).then(function(tx){
+                           console.log(tx);
+                       }).catch(function(tx){
+                           console.log(tx);
+                       })
+         });
+		 
+		 });
    </script>
 
 
