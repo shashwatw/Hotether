@@ -42,7 +42,7 @@ p {
     width: 80px;
     height: 15px; 
     position: absolute;
-    right: 240px;
+    right: 260px;
     top: 0px;
   }
 
@@ -73,11 +73,21 @@ html {
   }
   
   #contactus {
-    height: 350px;
-    background-color: #435055;
+    height: 370px;
+    color: #29A19C;
+    background-color: #232323;
   }
   
   #about {
-    height: 160px;
-    background-color: #435055;
+    height: 180px;
+    color: #29A19C;
+    background-color: #232323;
   }
+
+  .row1{
+    display: block;
+    position: relative;
+    height: 350px;
+    margin: 40px;
+  }
+  
